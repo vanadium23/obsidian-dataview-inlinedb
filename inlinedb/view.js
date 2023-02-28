@@ -67,6 +67,10 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
                     columns[header] = {
                         "type": "date"
                     };
+                } else if (dvValue.isNumber(v)) {
+                    columns[header] = {
+                        "type": "number",
+                    }
                 } else if (dvValue.isString(v)) {
                     columns[header] = {
                         "type": "text",
@@ -114,6 +118,9 @@ function renderTable(headers, rows, columns) {
                     break;
                 case "text":
                     elem = `<input class="inlinedb-input" type="text" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
+                    break;
+                case "number":
+                    elem = `<input class="inlinedb-input" type="number" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
                     break;
                 default:
                     elem = `<span>${v || "-"}</span>`;
