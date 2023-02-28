@@ -11,6 +11,6 @@ table start_date, draft from "blog"
 ## Recipe example
 
 ```dataview
-table cuisine, needsStove from "recipes"
+table cuisine, needsStove, rating from "recipes"
 ```
 

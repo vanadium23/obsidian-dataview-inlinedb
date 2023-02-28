@@ -1,6 +1,6 @@
 ---
 cuisine: American
-needsStove: false
+needsStove: 
 thoughtOfDate: 2021-12-11
 ---
 # Peanut Butter and Jelly

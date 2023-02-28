@@ -67,7 +67,7 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
                     columns[header] = {
                         "type": "date"
                     };
-                } else if (v !== null) {
+                } else if (dvValue.isString(v)) {
                     columns[header] = {
                         "type": "text",
                     }

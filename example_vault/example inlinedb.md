@@ -12,7 +12,7 @@ await dv.view('inlinedb', {query: query});
 
 
 ```dataviewjs
-const query = `table cuisine, needsStove from "recipes"`;
+const query = `table cuisine, needsStove, rating from "recipes"`;
 const columns = {
 	'cuisine': {
 		"type": "choice",
