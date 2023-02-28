@@ -15,7 +15,7 @@ await dv.view('inlinedb', {query: query});
 const query = `table cuisine, needsStove from "recipes"`;
 const columns = {
 	'cuisine': {
-		"type": "choices",
+		"type": "choice",
 		"choices": ["British", "American", "Italian"],
 	}
 }

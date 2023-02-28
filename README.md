@@ -38,12 +38,11 @@ By default, inlinedb will try to guess the [data types](https://blacksmithgu.git
 Allowed types:
 - `readonly` - for built-in fields, objects, lists, html-like structures and fields not presented in file metadata (like formulas).
 - `date` - if dataview query returns Luxon object with zeroed hours, minutes, seconds and milliseconds.
-- `datetime` - if dataview query returns Luxon object.
-- `choices` - from metaedit autoproperties settings.
+- `choice` - from metaedit autoproperties settings or column settings.
 - `number` - to change number.
 - `text` - for simple text modification.
 
-Not supported for editing: `list`, `objects`, `tags`, `link`.
+Not supported for editing: `list`, `objects`, `tags`, `link`, `datetime`.
 
 But for null values, it can not be done via values. So you can pass columns config.
 ```dataviewjs
@@ -56,12 +55,14 @@ SORT rating DESC`;
 const columns = {
     "time-played": "number",
     "rating": {
-        "type": "choices",
+        "type": "choice",
         "choices": [1,2,3,4,5],
     }
 }
 await dv.view('inlinedb', {query: query, columns: columns});
 ```
+
+For better example, you can open [example_vault](example_vault/example%20inlinedb.md) with obsidian.
 
 ## Known limitations
 
