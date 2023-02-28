@@ -6,7 +6,7 @@
 
 
 const { update } = app.plugins.plugins["metaedit"].api;
-// const { index, value } = app.plugins.plugins["dataview"].api;
+const { index: dvIndex, value: dvValue, renderValue } = app.plugins.plugins["dataview"].api;
 
 async function updateValue(event) {
     const target = event.target;
@@ -63,7 +63,7 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
                 if (columns[header].type != "unknown") {
                     continue;
                 }
-                if (isDate(v)) {
+                if (dvValue.isDate(v)) {
                     columns[header] = {
                         "type": "date"
                     };
@@ -75,7 +75,6 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
             }
         }
     }
-    console.log(columns);
     return columns;
 }
 
@@ -87,18 +86,6 @@ function renderSelect(property, value, file, choices) {
         options += `<option ${selected}>${choice}</option>`
     }
     return `<select class="inlinedb-select" data-property="${property}" data-file="${file.path}">${options}</select>`
-}
-
-function isDateTime(v) {
-    return v && v.isLuxonDateTime;
-}
-
-
-function isDate(v) {
-    if (!isDateTime(v)) {
-        return false;
-    }
-    return v.c.hour === 0 && v.c.minute === 0 && v.c.second === 0 && v.c.millisecond === 0;
 }
 
 function renderTable(headers, rows, columns) {
