@@ -14,6 +14,7 @@ const ColumnType = {
     Date: 'date',
     Number: 'number',
     Text: 'text',
+    Boolean: 'boolean',
 };
 
 async function updateValue(event) {
@@ -21,6 +22,13 @@ async function updateValue(event) {
     const filepath = target.dataset.file;
     const property = target.dataset.property;
     await update(property, target.value, filepath);
+}
+
+async function updateBooleanValue(event) {
+    const target = event.target;
+    const filepath = target.dataset.file;
+    const property = target.dataset.property;
+    await update(property, target.checked, filepath);
 }
 
 async function openFile(event) {
@@ -32,6 +40,7 @@ async function openFile(event) {
 function setupEvents(table) {
     table.querySelectorAll('.inlinedb-input').forEach((x) => x.addEventListener('blur', updateValue));
     table.querySelectorAll('.inlinedb-select').forEach((x) => x.addEventListener('change', updateValue));
+    table.querySelectorAll('.inlinedb-checkbox').forEach((x) => x.addEventListener('change', updateBooleanValue));
     table.querySelectorAll('.internal-link').forEach((x) => x.addEventListener('click', openFile));
 }
 
@@ -83,6 +92,10 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
                     columns[header] = {
                         "type": ColumnType.Text,
                     }
+                } else if (dvValue.isBoolean(v)) {
+                    columns[header] = {
+                        "type": ColumnType.Boolean,
+                    }
                 }
             }
         }
@@ -129,6 +142,9 @@ function renderTable(headers, rows, columns) {
                     break;
                 case ColumnType.Number:
                     elem = `<input class="inlinedb-input" type="number" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
+                    break;
+                case ColumnType.Boolean:
+                    elem = `<input class="inlinedb-checkbox" type="checkbox" ${v && 'checked'} data-property="${headers[i]}" data-file="${file.path}">`
                     break;
                 default:
                     elem = `<span>${v || "-"}</span>`;

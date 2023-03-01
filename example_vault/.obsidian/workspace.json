@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "example inlinedb.md",
+                "file": "recipes/pbj.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "example inlinedb.md",
+                "file": "recipes/pbj.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "example inlinedb.md",
+                "file": "recipes/pbj.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "example inlinedb.md"
+                "file": "recipes/pbj.md"
               }
             }
           }
@@ -148,9 +148,9 @@
   },
   "active": "cafeead12477546a",
   "lastOpenFiles": [
-    "example tables.md",
-    "recipes/pbj.md",
     "example inlinedb.md",
+    "recipes/pbj.md",
+    "example tables.md",
     "recipes/toast.md",
     "blog/2020-08-08-an-earlier-post.md",
     "blog/2021-08-08-a-post.md",
