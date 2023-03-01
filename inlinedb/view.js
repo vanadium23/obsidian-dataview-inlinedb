@@ -4,9 +4,17 @@
 //      renderTable
 //      setupEvents
 
-
 const { update } = app.plugins.plugins["metaedit"].api;
 const { index: dvIndex, value: dvValue, renderValue } = app.plugins.plugins["dataview"].api;
+
+const ColumnType = {
+    Unknown: 'unknown',
+    File: 'file',
+    Choice: 'choice',
+    Date: 'date',
+    Number: 'number',
+    Text: 'text',
+};
 
 async function updateValue(event) {
     const target = event.target;
@@ -30,11 +38,11 @@ function setupEvents(table) {
 function generateColumns(headers, rows, configColumns = {}, try_to_guess = true) {
     const columns = {};
     // first header is always file
-    columns[headers[0]] = {"type": "file"};
+    columns[headers[0]] = { "type": ColumnType.File };
     if (try_to_guess && this.app.plugins.plugins["metaedit"].settings.AutoProperties.enabled) {
         for (const property of this.app.plugins.plugins["metaedit"].settings.AutoProperties.properties) {
             columns[property.name] = {
-                "type": "choices",
+                "type": ColumnType.Choice,
                 "choices": property.choices,
             };
         }
@@ -51,7 +59,7 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
     for (const header of headers) {
         if (!!!columns[header]) {
             columns[header] = {
-                "type": "unknown",
+                "type": ColumnType.Unknown,
             }
         }
     }
@@ -60,20 +68,20 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
         for (const value of rows) {
             for (const [index, v] of value.entries()) {
                 const header = headers[index];
-                if (columns[header].type != "unknown") {
+                if (columns[header].type != ColumnType.Unknown) {
                     continue;
                 }
                 if (dvValue.isDate(v)) {
                     columns[header] = {
-                        "type": "date"
+                        "type": ColumnType.Date,
                     };
                 } else if (dvValue.isNumber(v)) {
                     columns[header] = {
-                        "type": "number",
+                        "type": ColumnType.Number,
                     }
                 } else if (dvValue.isString(v)) {
                     columns[header] = {
-                        "type": "text",
+                        "type": ColumnType.Text,
                     }
                 }
             }
@@ -107,19 +115,19 @@ function renderTable(headers, rows, columns) {
         for (const v of value) {
             let elem = "";
             switch (columns[headers[i]].type) {
-                case "file":
+                case ColumnType.File:
                     elem = `<span class="cm-hmd-internal-link internal-link" data-file="${file.path}">${v.fileName()}</span>`;
                     break;
-                case "choice":
+                case ColumnType.Choice:
                     elem = renderSelect(headers[i], v, file, columns[headers[i]].choices);
                     break;
-                case "date":
+                case ColumnType.Date:
                     elem = `<input class="inlinedb-input" type="date" value="${v ? v.toISODate() : ''}" data-property="${headers[i]}" data-file="${file.path}">`
                     break;
-                case "text":
+                case ColumnType.Text:
                     elem = `<input class="inlinedb-input" type="text" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
                     break;
-                case "number":
+                case ColumnType.Number:
                     elem = `<input class="inlinedb-input" type="number" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
                     break;
                 default:

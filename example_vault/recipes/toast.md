@@ -2,7 +2,7 @@
 cuisine: British
 needsStove: true
 thoughtOfDate: 2021-12-10
-rating: 123
+rating: 4
 ---
 
 # Toast
