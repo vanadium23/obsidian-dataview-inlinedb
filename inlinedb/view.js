@@ -5,10 +5,11 @@
 //      setupEvents
 
 const { update } = app.plugins.plugins["metaedit"].api;
-const { index: dvIndex, value: dvValue, renderValue } = app.plugins.plugins["dataview"].api;
+const { value: dvValue, index: dvIndex } = app.plugins.plugins["dataview"].api;
 
 const ColumnType = {
     Unknown: 'unknown',
+    Readonly: 'readonly',
     File: 'file',
     Choice: 'choice',
     Date: 'date',
@@ -75,15 +76,28 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
 
     if (try_to_guess) {
         for (const value of rows) {
+            const file = value[0];
+            const fileMetadata = dvIndex.pages.get(file.path);
             for (const [index, v] of value.entries()) {
                 const header = headers[index];
                 if (columns[header].type != ColumnType.Unknown) {
+                    continue;
+                }
+                // set as read only fields, that are note part of metadata
+                if (v !== null && !!!fileMetadata.fields.get(header)) {
+                    columns[header] = {
+                        "type": ColumnType.Readonly,
+                    }
                     continue;
                 }
                 if (dvValue.isDate(v)) {
                     columns[header] = {
                         "type": ColumnType.Date,
                     };
+                } else if (dvValue.isLink(v)) {
+                    columns[header] = {
+                        "type": ColumnType.File,
+                    }
                 } else if (dvValue.isNumber(v)) {
                     columns[header] = {
                         "type": ColumnType.Number,
