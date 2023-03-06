@@ -77,7 +77,7 @@ For better example, you can open [example_vault](example_vault/example%20inlined
 
 > Why not Obsidian DB Folder?
 
-I want to move my views from dataview queries to some inline notion-like tables, but DB folder was UI configurable separated view from notes with tough yaml under it. So with the inlinedb, you can do all things in dataview query, pass to the custom view and 
+I want to move my views from dataview queries to some inline notion-like tables, but DB folder was UI configurable separated view from notes with a large yaml under it. So with the inlinedb, you can do all things in dataview query, pass to the custom view and manage your data inplace.
 
 > Why not plugin?
 
@@ -90,3 +90,7 @@ Via a dataview query `WHERE` keyword. (:
 > How do I sort table?
 
 Via a dataview query `SORT BY` keyword.
+
+> How to quicky add new notes with same type?
+
+Via QuickAdd, templater or buttons plugins in obsidian,
