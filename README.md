@@ -4,6 +4,8 @@ Dataview inlinedb is a custom view for dataview plugin in obsidian. It provides 
 
 Inspired by [Obsidian DB Folder](https://github.com/RafaelGB/obsidian-db-folder) and custom views from @702573N. Also relies on [MetaEdit](https://github.com/chhoumann/MetaEdit) plugin.
 
+![Inlinedb showcase](example_vault/dataview-to-inlinedb.gif)
+
 ## Installation
 
 1. Install dataview and metaedit plugin in obsidian.

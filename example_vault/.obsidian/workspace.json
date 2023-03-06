@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "ce9eb66474580968",
+        "id": "e15b2f925035c09f",
         "type": "tabs",
         "children": [
           {
-            "id": "cafeead12477546a",
+            "id": "7f8fe9555c6da954",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "recipes/pbj.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "recipes/pbj.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "recipes/pbj.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "recipes/pbj.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -146,14 +138,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "cafeead12477546a",
+  "active": "7f8fe9555c6da954",
   "lastOpenFiles": [
+    "dataview-to-inlinedb.gif",
+    "simplescreenrecorder-2023-03-06_18.37.20.gif",
     "example inlinedb.md",
-    "recipes/pbj.md",
     "example tables.md",
-    "recipes/toast.md",
-    "blog/2020-08-08-an-earlier-post.md",
     "blog/2021-08-08-a-post.md",
+    "how to convert in inlinedb.md",
+    "blog/2020-08-08-an-earlier-post.md",
+    "recipes/pbj.md",
+    "recipes/toast.md",
     "().md"
   ]
 }
