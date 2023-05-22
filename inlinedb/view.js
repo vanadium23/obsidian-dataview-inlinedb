@@ -84,7 +84,7 @@ function generateColumns(headers, rows, configColumns = {}, try_to_guess = true)
                     continue;
                 }
                 // set as read only fields, that are note part of metadata
-                if (v !== null && !!!fileMetadata.fields.get(header)) {
+                if (fileMetadata.fields.get(header) === null) {
                     columns[header] = {
                         "type": ColumnType.Readonly,
                     }
@@ -141,28 +141,33 @@ function renderTable(headers, rows, columns) {
         let i = 0;
         for (const v of value) {
             let elem = "";
-            switch (columns[headers[i]].type) {
-                case ColumnType.File:
-                    elem = `<span class="cm-hmd-internal-link internal-link" data-file="${file.path}">${v.fileName()}</span>`;
-                    break;
-                case ColumnType.Choice:
-                    elem = renderSelect(headers[i], v, file, columns[headers[i]].choices);
-                    break;
-                case ColumnType.Date:
-                    elem = `<input class="inlinedb-input" type="date" value="${v ? v.toISODate() : ''}" data-property="${headers[i]}" data-file="${file.path}">`
-                    break;
-                case ColumnType.Text:
-                    elem = `<input class="inlinedb-input" type="text" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
-                    break;
-                case ColumnType.Number:
-                    elem = `<input class="inlinedb-input" type="number" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
-                    break;
-                case ColumnType.Boolean:
-                    elem = `<input class="inlinedb-checkbox" type="checkbox" ${v && 'checked'} data-property="${headers[i]}" data-file="${file.path}">`
-                    break;
-                default:
+			if (v === null)
                     elem = `<span>${v || "-"}</span>`;
-                    break;
+			else {
+				switch (columns[headers[i]].type) {
+					case ColumnType.File:
+						elem = `<span><a data-tooltip-position="top" aria-label="${file.path}" data-href="${file.path}" data-file="${file.path}" href="${file.path}" class="internal-link" target="_blank" rel="noopener" file="${file.path}">${v.fileName()}</a></span>`;
+						break;
+					case ColumnType.Choice:
+						elem = renderSelect(headers[i], v, file, columns[headers[i]].choices);
+						break;
+					case ColumnType.Date:
+						elem = `<input class="inlinedb-input" type="date" value="${v ? v.toISODate() : ''}" data-property="${headers[i]}" data-file="${file.path}">`
+						break;
+					case ColumnType.Text:
+						elem = `<input class="inlinedb-input" type="text" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
+						break;
+					case ColumnType.Number:
+						elem = `<input class="inlinedb-input" type="number" value="${v || ''}" data-property="${headers[i]}" data-file="${file.path}">`
+						break;
+					case ColumnType.Boolean:
+						elem = `<input class="inlinedb-checkbox" type="checkbox" ${v && 'checked'} data-property="${headers[i]}" data-file="${file.path}">`
+						break;
+					default:
+						elem = `<span>${v || "-"}</span>`;
+						break;
+				}
+            }
             }
             tbody += `<td>${elem}</td>`
             i++;
