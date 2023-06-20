@@ -127,10 +127,12 @@ function renderSelect(property, value, file, choices) {
     return `<select class="inlinedb-select" data-property="${property}" data-file="${file.path}">${options}</select>`
 }
 
-function renderTable(headers, rows, columns) {
+function renderTable(headers, aliases, rows, columns) {
     let theader = '';
-    for (const h of headers) {
-        theader += `<th class="table-view-th">${h}</th>`;
+	if(!aliases)
+		aliases = headers;
+    for (const a of aliases) {
+        theader += `<th class="table-view-th">${a}</th>`;
     }
 
 
@@ -174,7 +176,7 @@ function renderTable(headers, rows, columns) {
 
 
 async function renderInlineDb(input) {
-    let headers, rows;
+    let headers, rows, aliases;
     if (input.query) {
         const result = await dv.query(input.query);
         headers = result.value.headers;
@@ -185,7 +187,9 @@ async function renderInlineDb(input) {
     }
     const columns = generateColumns(headers, rows, input.columns, input.try_to_guess);
     const table = createEl('table', { cls: "dataview table-view-table" });
-    table.innerHTML = renderTable(headers, rows, columns);
+	if (input.aliases)
+		aliases = input.aliases;
+    table.innerHTML = renderTable(headers, aliases, rows, columns);
     await dv.el('div', table);
     setupEvents(table);
 }
