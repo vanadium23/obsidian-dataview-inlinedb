@@ -143,7 +143,7 @@ function renderTable(headers, rows, columns) {
             let elem = "";
             switch (columns[headers[i]].type) {
                 case ColumnType.File:
-                    elem = `<span class="cm-hmd-internal-link internal-link" data-file="${file.path}">${v.fileName()}</span>`;
+                    elem = `<span><a data-tooltip-position="top" aria-label="${file.path}" data-href="${file.path}" data-file="${file.path}" href="app://obsidian.md/${file.path}" class="internal-link" target="_blank" rel="noopener" file="${file.path}">${v.fileName()}</a></span>`;
                     break;
                 case ColumnType.Choice:
                     elem = renderSelect(headers[i], v, file, columns[headers[i]].choices);
